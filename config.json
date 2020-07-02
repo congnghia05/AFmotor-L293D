@@ -1,0 +1,43 @@
+{
+  "name": {
+    "zh-cn": "AFMotor电机驱动板",
+    "en": "AFMotor Shield"
+  },
+  "description": {
+    "zh-cn": "AFMotor 电机驱动板",
+    "en": "AFMotor Shield"
+  },
+  "author": "hockel",
+  "email": "837316354@qq.com",
+  "license": "MIT",
+  "isBoard": false,
+  "id": "AFMotor",
+  "version": "0.0.1",
+  "platform": [
+    "win",
+    "mac",
+    "web"
+  ],
+  "asset": {
+    "arduinoC": {
+      "dir": "arduinoC/",
+      "version": "0.0.1",
+      "board": [
+        "arduino"
+      ],
+      "main": "main.ts",
+      "files": [
+        "_images/icon.svg",
+        "_locales/zh-cn.json",
+        "_menus/arduino.json",
+        "_menus/arduinonano.json",
+        "_menus/esp32.json",
+        "_menus/leonardo.json",
+        "_menus/mega2560.json",
+        "_menus/microbit.json",
+        "main.ts",
+        "libraries/libraries.zip"
+      ]
+    }
+  }
+}
