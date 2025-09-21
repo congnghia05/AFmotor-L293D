@@ -1,18 +1,16 @@
 {
   "name": {
-    "zh-cn": "AFMotor电机驱动板",
-    "en": "AFMotor Shield"
+    "en": "L293D Shield"
   },
   "description": {
-    "zh-cn": "AFMotor 电机驱动板 By:hockel",
-    "en": "AFMotor Shield"
+    "en": "L293D Shield"
   },
-  "author": "hockel",
-  "email": "837316354@qq.com",
+  "author": "Lemon",
+  "email": "sales@lemon.vn",
   "license": "MIT",
   "isBoard": false,
   "id": "AFMotor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "platform": [
     "win",
     "mac",
