@@ -10,9 +10,9 @@ enum LINE {
 }
 
 enum DIR {
-    //% block="前进"
+    //% block="Forward"
     FORWARD,
-    //% block="后退"
+    //% block="Backward"
     BACKWARD
 }
 enum COM {
@@ -22,23 +22,22 @@ enum COM {
     2
 }
 enum MODEL {
-    //% block="全步进(单线圈)"
+    //% block="Full Step (Single Coil)"
     SINGLE,
-    //% block="全步进(双线圈)"
+    //% block="Full step (dual coil)"
     DOUBLE,
-    //% block="半步进"
+    //% block="Half step"
     INTERLEAVE,
-    //% block="微步进"
+    //% block="Microstep"
     MICROSTEP
 }
 
-
 //% color="#3264C8" iconWidth=50 iconHeight=40
 namespace AFMOTOR {
-    //% block="设置电机 [motor] 方向 [dir]速度 [speed]" blockType="command"
+    //% block="Set motor [motor] direction [dir] speed [speed]" blockType="command"
     //% motor.shadow="dropdown" motor.options="LINE" BUTTON.defl="LINE.M1"
-    //% dir.shadow="dropdown" dir.options="DIR" dir.defl="DIR.前进"
-    //% speed.shadow="range" speed.params.min=0    speed.params.max=255    speed.defl=200
+    //% dir.shadow="dropdown" dir.options="DIR" dir.defl="DIR.FORWARD"
+    //% speed.shadow="range" speed.params.min=0    speed.params.max=255    speed.defl=250
     export function AFMotorInit(parameter: any, block: any) {
         let Motor = parameter.motor.code;
         let Dir = parameter.dir.code;
@@ -47,13 +46,13 @@ namespace AFMOTOR {
         Generator.addObject(`AFMOTORobj${Motor}`, `AF_DCMotor`, `motor${Motor}(${Motor});`,true);
         Generator.addCode(`motor${Motor}.setSpeed(${Speed});\n\tmotor${Motor}.run(${Dir});`);
     }
-    //% block="停止电机 [motor]" blockType="command"
+    //% block="Stop motor [motor]" blockType="command"
     //% motor.shadow="dropdown" motor.options="LINE" BUTTON.defl="LINE.M1"
     export function AFMotorStop(parameter: any, block: any) {
         let Motor = parameter.motor.code;
         Generator.addCode(`motor${Motor}.setSpeed(0);\n\t motor${Motor}.run(RELEASE);`);
     }
-    //% block="设置步进电机步数 [s1] 端口[c1] 运转模式[m1]" blockType="command"
+    //% block="Set stepper motor steps [s1] port [c1] operation mode [m1]" blockType="command"
     //% s1.shadow="number" s1.defl="2048" 
     //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     //% m1.shadow="dropdown" m1.options="MODEL"
@@ -69,7 +68,7 @@ namespace AFMOTOR {
         Generator.addObject(`Accel_Stepper${C1}`, `AccelStepper`, `stepper${C1}(forwardstep${C1}, backwardstep${C1});`);
         
     }
-    //% block="设置步进电机[c1]最大速度 [speed]" blockType="command"
+    //% block="Set the maximum speed of the stepper motor [c1] [speed]" blockType="command"
     //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     //% speed.shadow="number" speed.defl="500"
     export function MaxSpeedset(parameter: any, block: any) {
@@ -77,7 +76,7 @@ namespace AFMOTOR {
         let S1 = parameter.speed.code;
         Generator.addCode(`stepper${C1}.setMaxSpeed(${S1});	`);
     }
-    //% block="设置电机[c1]运行速度 [speed]" blockType="command"
+    //% block="Set motor [c1] running speed [speed]" blockType="command"
     //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     //% speed.shadow="number" speed.defl="300"
     export function SpeedInit(parameter: any, block: any) {
@@ -85,7 +84,7 @@ namespace AFMOTOR {
         let S1 = parameter.speed.code;
         Generator.addCode(`stepper${C1}.setSpeed(${S1});`);
     }
-    //% block="步进电机[c1]加速度[a1]" blockType="command"
+    //% block="Stepper Motor [c1] Acceleration [a1]" blockType="command"
      //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
      //% a1.shadow="number"  a1.defl="50"
      export function stepperAcceleration(parameter: any, block: any) {
@@ -93,7 +92,7 @@ namespace AFMOTOR {
         let A1 = parameter.a1.code;
         Generator.addCode(`stepper${C1}.setAcceleration(${A1});`);
     }
-    //% block="步进电机[c1]移动目标相对位置[p1]" blockType="command"
+    //% block="Stepper motor [c1] moves the target relative position [p1]" blockType="command"
     //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     //% p1.shadow="number"  p1.defl="100"
      export function stepperMove(parameter: any, block: any) {
@@ -101,7 +100,7 @@ namespace AFMOTOR {
         let P1 = parameter.p1.code;
         Generator.addCode(`stepper${C1}.move(${P1});`);
     }
-    //% block="步进电机[c1]移动目标绝对位置[p1]" blockType="command"
+    //% block="Stepper motor [c1] moves the target absolute position [p1]" blockType="command"
     //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     //% p1.shadow="number"  p1.defl="100"
     export function stepperMoveTo(parameter: any, block: any) {
@@ -109,13 +108,13 @@ namespace AFMOTOR {
         let P1 = parameter.p1.code;
         Generator.addCode(`stepper${C1}.moveTo(${P1});`);
     }
-    //% block="获取步进电机[c1]运行当前位置" blockType="reporter"
+    //% block="Get the current position of the stepper motor [c1]" blockType="reporter"
     //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     export function stepperCurrentPosition(parameter: any, block: any) {
         let C1 = parameter.c1.code;
         Generator.addCode(`stepper${C1}.currentPosition()`);
     }
-    //% block="获取步进电机[c1]运行目标位置" blockType="reporter"
+    //% block="Get the target position of stepper motor [c1]" blockType="reporter"
     //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     export function steppertargetPosition(parameter: any, block: any) {
         let C1 = parameter.c1.code;
@@ -123,19 +122,19 @@ namespace AFMOTOR {
     }
 
 
-    //% block="步进电机[c1]运行(匀速模式)" blockType="command"
+    //% block="Stepper motor [c1] operation (constant speed mode)" blockType="command"
      //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     export function stepperStart(parameter: any, block: any) {
         let C1 = parameter.c1.code;
         Generator.addCode(`stepper${C1}.runSpeed();`);
     }
-    //% block="步进电机[c1]运行(先加速后减速模式)" blockType="command"
+    //% block="Stepper motor [c1] operation (acceleration followed by deceleration mode)" blockType="command"
      //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
     export function stepperRunStart(parameter: any, block: any) {
         let C1 = parameter.c1.code;
         Generator.addCode(`stepper${C1}.run();`);
     }
-    //% block="停止步进电机[c1]" blockType="command"
+    //% block="Stop stepper motor[c1]" blockType="command"
      //% c1.shadow="dropdown" c1.options="COM" c1.defl="COM.M1M2"
      export function stepperStop(parameter: any, block: any) {
         let C1 = parameter.c1.code;
